@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import BookNowMobileView from './components/Book-now-mobile-view';
+import ContactDetailsMobileView from './components/Contact-details-mobile-view';
+import PaymentDetailsMobileView from './components/Payment-details-mobile-view';
+import './styles.css'
 
-function App() {
+const App = () => {
+  const [activeStep, setActiveStep] = useState(1);
+
+  const handleNextStep = () => {
+    setActiveStep(activeStep + 1);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="max-w-screen-sm mx-auto px-2"> 
+      <Header />
+      <BookNowMobileView activeStep={activeStep} />
+      <hr className="my-2 border-t-1 border-[#D7D7D7]" />
+      {activeStep === 1 && <ContactDetailsMobileView onNextStep={handleNextStep} />}
+      {activeStep === 2 && <PaymentDetailsMobileView />}
+    
     </div>
   );
-}
+};
 
 export default App;
